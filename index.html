@@ -432,10 +432,10 @@
 
     <div class="form-wrapper" id="waitlist">
       <label class="form-label" for="email-input">Join the waitlist — free during beta</label>
-      <form action="https://formsubmit.co/affiliate25600@gmail.com" method="POST">
+      <form id="waitlist-form" action="https://formsubmit.co/ajax/affiliate25600@gmail.com" method="POST">
         <input type="hidden" name="_subject" value="Outpost Waitlist Signup">
         <input type="hidden" name="_captcha" value="false">
-        <div class="form-row">
+        <div class="form-row" id="waitlist-fields">
           <input
             id="email-input"
             class="form-input"
@@ -446,6 +446,7 @@
           />
           <button type="submit" class="btn btn-primary btn-lg">Get early access</button>
         </div>
+        <p id="waitlist-success" style="display:none; color: var(--orange); font-weight: 600; margin-top: 12px;">You're on the list — we'll be in touch soon.</p>
       </form>
       <p class="form-hint">
         <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -652,6 +653,21 @@
 </footer>
 
 <script>
+  document.getElementById('waitlist-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var form = this;
+    fetch(form.action, {
+      method: 'POST',
+      body: new FormData(form),
+      headers: { 'Accept': 'application/json' }
+    }).then(function (res) {
+      if (res.ok) {
+        document.getElementById('waitlist-fields').style.display = 'none';
+        document.getElementById('waitlist-success').style.display = 'block';
+      }
+    });
+  });
+
   document.querySelectorAll('a[href="#waitlist"]').forEach(function (link) {
     link.addEventListener('click', function (e) {
       e.preventDefault();
