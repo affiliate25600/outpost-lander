@@ -303,25 +303,11 @@
     .not-item p strong { color: var(--text); font-weight: 600; }
 
     /* ── Pricing ── */
-    .pricing-banner {
-      text-align: center;
-      background: var(--orange-glow);
-      border: 1px solid rgba(249,115,22,.25);
-      border-radius: var(--radius);
-      padding: 14px 20px;
-      font-size: 14px;
-      font-weight: 500;
-      color: var(--orange);
-      margin-bottom: 40px;
-      max-width: 760px;
-      margin-left: auto;
-      margin-right: auto;
-    }
     .pricing-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1fr;
       gap: 20px;
-      max-width: 760px;
+      max-width: 480px;
       margin: 0 auto;
     }
     .plan {
@@ -388,7 +374,6 @@
       .form-row { flex-direction: column; }
       .steps { grid-template-columns: 1fr; }
       .step:not(:last-child)::after { content: '↓'; right: auto; left: 50%; transform: translateX(-50%); top: auto; bottom: -14px; }
-      .pricing-grid { grid-template-columns: 1fr; }
       .footer-inner { flex-direction: column; align-items: flex-start; }
       section { padding: 64px 0; }
     }
@@ -413,7 +398,7 @@
 <!-- ── Hero ── -->
 <section class="hero-section" style="padding:0;">
   <div class="hero">
-    <span class="tag">Free during beta &nbsp;·&nbsp; Now open</span>
+    <span class="tag">14-day free trial &nbsp;·&nbsp; No card required</span>
     <h1 class="hero-headline">
       Build in public.<br /><em>Without the blank page.</em>
     </h1>
@@ -422,7 +407,7 @@
     </p>
 
     <div class="form-wrapper" id="waitlist">
-      <label class="form-label" for="email-input">Join the waitlist — free during beta</label>
+      <label class="form-label" for="email-input">Join the waitlist — 14-day free trial</label>
       <form id="waitlist-form" action="https://formsubmit.co/ajax/affiliate25600@gmail.com" method="POST">
         <input type="hidden" name="_subject" value="Outpost Waitlist Signup">
         <input type="hidden" name="_captcha" value="false">
@@ -448,7 +433,7 @@
     </div>
 
     <div class="social-strip">
-      <span class="social-text">Be one of the first founders in — no credit card, no commitment</span>
+      <span class="social-text">14-day free trial &nbsp;·&nbsp; No credit card required &nbsp;·&nbsp; Cancel any time</span>
     </div>
   </div>
 </section>
@@ -542,52 +527,18 @@
     <div class="section-header">
       <span class="tag">Pricing</span>
       <h2 class="section-title">Simple, honest pricing</h2>
-      <p class="section-sub">Start free. Upgrade when Outpost earns its keep.</p>
-    </div>
-    <div class="pricing-banner">
-      Everything is free during the beta. No card needed, no gotchas.
+      <p class="section-sub">One plan, one price. Try free for 14 days — no card required.</p>
     </div>
     <div class="pricing-grid">
 
-      <!-- Free -->
-      <div class="plan">
-        <div class="plan-name">Free</div>
-        <div class="plan-price">
-          <span class="price-amount">$0</span>
-          <span class="price-period">/ month</span>
-        </div>
-        <p class="plan-desc">Perfect for getting started. No credit card ever needed.</p>
-        <hr class="plan-divider" />
-        <ul class="features">
-          <li>
-            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m3 8 3.5 3.5 6.5-7"/></svg>
-            1 connected project
-          </li>
-          <li>
-            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m3 8 3.5 3.5 6.5-7"/></svg>
-            5 drafted posts per month
-          </li>
-          <li>
-            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m3 8 3.5 3.5 6.5-7"/></svg>
-            X &amp; IndieHackers publishing
-          </li>
-          <li>
-            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m3 8 3.5 3.5 6.5-7"/></svg>
-            GitHub integration
-          </li>
-        </ul>
-        <a href="#waitlist" class="btn btn-outline btn-block" style="padding:13px 0;">Get started free</a>
-      </div>
-
       <!-- Pro -->
       <div class="plan featured">
-        <div class="plan-badge">Most popular</div>
         <div class="plan-name">Pro</div>
         <div class="plan-price">
           <span class="price-amount">$19</span>
-          <span class="price-period">/ month</span>
+          <span class="price-period">USD / month</span>
         </div>
-        <p class="plan-desc">For founders who are serious about their audience. Free during beta.</p>
+        <p class="plan-desc">14-day free trial, no credit card required. Cancel any time.</p>
         <hr class="plan-divider" />
         <ul class="features">
           <li>
@@ -600,7 +551,7 @@
           </li>
           <li>
             <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m3 8 3.5 3.5 6.5-7"/></svg>
-            X, LinkedIn &amp; IndieHackers
+            X, LinkedIn &amp; IndieHackers publishing
           </li>
           <li>
             <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m3 8 3.5 3.5 6.5-7"/></svg>
@@ -615,7 +566,7 @@
             Priority support
           </li>
         </ul>
-        <a href="#waitlist" class="btn btn-primary btn-block" style="padding:13px 0;">Get free beta access</a>
+        <a href="#waitlist" class="btn btn-primary btn-block" style="padding:13px 0;">Start free trial</a>
       </div>
 
     </div>
