@@ -114,9 +114,25 @@
       cursor: pointer;
       clip-path: var(--chamfer-sm);
       filter: drop-shadow(0 0 18px rgba(249,115,22,0.45));
-      transition: background 0.18s, filter 0.18s;
+      transition: background 0.18s, filter 0.18s, transform 0.15s;
     }
-    .btn-primary:hover { background: var(--orange-dim); filter: drop-shadow(0 0 28px rgba(249,115,22,0.65)); }
+    .btn-primary:hover { background: var(--orange-dim); filter: drop-shadow(0 0 28px rgba(249,115,22,0.65)); transform: translate(-2px, -3px); }
+
+    .shadow-btn-wrap { position: relative; display: inline-flex; }
+    .shadow-btn-wrap::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: #fff;
+      clip-path: var(--chamfer-sm);
+      transform: translate(0px, 0px);
+      opacity: 0;
+      transition: opacity 0.2s, transform 0.2s;
+      pointer-events: none;
+    }
+    .shadow-btn-wrap:hover::before { opacity: 0.1; transform: translate(8px, 8px); }
+    nav .btn-primary { transition: background 0.18s, filter 0.18s; }
+    nav .btn-primary:hover { background: rgba(255,255,255,0.06); filter: none; transform: none; }
     .btn-primary-sm { font-size: 0.88rem; padding: 8px 18px; }
 
     .btn-secondary {
@@ -134,9 +150,24 @@
       white-space: nowrap;
       cursor: pointer;
       clip-path: var(--chamfer-sm);
-      transition: background 0.18s, border-color 0.18s;
+      position: relative;
+      transition: background 0.18s, border-color 0.18s, transform 0.15s;
     }
-    .btn-secondary:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.2); }
+    .btn-secondary::after {
+      content: '';
+      position: absolute;
+      top: 0; left: -90%;
+      width: 55%; height: 100%;
+      background: linear-gradient(105deg, transparent 15%, rgba(255,255,255,0.14) 50%, transparent 85%);
+      transform: skewX(-18deg);
+      transition: left 0s;
+      pointer-events: none;
+    }
+    .btn-secondary:hover::after {
+      left: 140%;
+      transition: left 0.48s ease;
+    }
+    .btn-secondary:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.2); transform: scale(1.04); }
 
     /* ── Hero ── */
     .hero-section {
@@ -197,7 +228,27 @@
     }
     .hero-headline .line-1 { color: #fff; display: block; }
     .hero-headline .line-2 { color: var(--orange); display: block; }
-    .font-handdrawn { font-family: 'Caveat', cursive; font-weight: 700; font-size: 1.18em; text-shadow: 8px 8px 0 rgba(255,255,255,0.25); }
+    .font-handdrawn {
+      font-family: 'Caveat', cursive;
+      font-weight: 700;
+      font-size: 1.18em;
+      text-shadow: 8px 8px 0 rgba(255,255,255,0.25);
+      display: inline-block;
+      position: relative;
+      isolation: isolate;
+    }
+    .font-handdrawn::before {
+      content: '';
+      position: absolute;
+      top: 8%; bottom: 5%;
+      left: -4px; right: -4px;
+      background: rgba(249,115,22,0.88);
+      transform: scaleX(0);
+      transform-origin: left center;
+      transition: transform 0.38s ease;
+      z-index: -1;
+    }
+    .hero-headline:hover .font-handdrawn::before { transform: scaleX(1); }
 
     /* Sub text */
     .hero-sub {
@@ -302,6 +353,12 @@
       clip-path: var(--chamfer-md);
       filter: drop-shadow(0 4px 24px rgba(249,115,22,0.07));
       padding: 36px 30px;
+      transition: transform 0.25s ease, filter 0.25s ease, border-color 0.25s ease;
+    }
+    .step-card:hover {
+      transform: translateY(-6px);
+      filter: drop-shadow(0 10px 36px rgba(249,115,22,0.18));
+      border-color: rgba(249,115,22,0.15);
     }
     .step-num {
       color: rgba(249,115,22,0.5);
@@ -389,10 +446,10 @@
       cursor: pointer;
       clip-path: var(--chamfer-sm);
       filter: drop-shadow(0 0 16px rgba(249,115,22,0.3));
-      transition: background 0.18s, filter 0.18s;
+      transition: background 0.18s, filter 0.18s, transform 0.15s;
       margin-bottom: 12px;
     }
-    .pricing-btn:hover { background: var(--orange-dim); filter: drop-shadow(0 0 24px rgba(249,115,22,0.5)); }
+    .pricing-btn:hover { background: var(--orange-dim); filter: drop-shadow(0 0 28px rgba(249,115,22,0.65)); transform: translate(-2px, -3px); }
     .pricing-note { color: var(--text-muted); font-size: 0.78rem; text-align: center; }
 
     /* ── Footer ── */
@@ -417,6 +474,42 @@
     .footer-copy-row p { color: rgba(255,255,255,0.18); font-size: 0.78rem; }
 
     /* ── Mobile ── */
+    /* ── Cursor glow ── */
+    #cursor-glow {
+      position: fixed;
+      top: 0; left: 0;
+      width: 900px; height: 900px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(249,115,22,0.14) 0%, rgba(249,115,22,0.05) 40%, transparent 68%);
+      filter: blur(55px);
+      pointer-events: none;
+      z-index: 50;
+      will-change: transform;
+      transform: translate(-50%, -50%);
+    }
+
+    /* ── Hero entrance ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(22px); }
+      to   { opacity: 1; transform: none; }
+    }
+    .hero-pill    { animation: fadeUp 0.55s ease both; animation-delay: 0.05s; }
+    .hero-headline { animation: fadeUp 0.6s  ease both; animation-delay: 0.18s; }
+    .hero-sub     { animation: fadeUp 0.6s  ease both; animation-delay: 0.32s; }
+    .form-wrapper { animation: fadeUp 0.6s  ease both; animation-delay: 0.45s; }
+    .hero-trust   { animation: fadeUp 0.6s  ease both; animation-delay: 0.52s; }
+
+    /* ── Scroll reveal ── */
+    [data-reveal] {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    [data-reveal].revealed { opacity: 1; transform: none; }
+    [data-reveal-delay='1'] { transition-delay: 0.1s; }
+    [data-reveal-delay='2'] { transition-delay: 0.2s; }
+    [data-reveal-delay='3'] { transition-delay: 0.3s; }
+
     @media (max-width: 680px) {
       .nav-inner { padding: 0 16px; }
       .hero-inner { padding: 88px 20px 64px; }
@@ -434,6 +527,7 @@
 
 <!-- ── Animated swirl background ── -->
 <canvas id="swirl-canvas"></canvas>
+<div id="cursor-glow"></div>
 
 <!-- ── Nav ── -->
 <nav>
@@ -476,7 +570,7 @@
             placeholder="you@example.com"
             required
           />
-          <button type="submit" class="btn-primary">Join waitlist</button>
+          <span class="shadow-btn-wrap"><button type="submit" class="btn-primary">Join waitlist</button></span>
         </div>
         <p id="waitlist-success">You're on the list — we'll be in touch soon.</p>
       </form>
@@ -494,11 +588,11 @@
   <!-- ── How it works ── -->
   <section id="how-it-works">
     <div class="container">
-      <h2 class="section-heading">From activity to audience in three steps</h2>
+      <h2 class="section-heading" data-reveal="">From activity to audience in three steps</h2>
 
       <div class="how-grid">
         <!-- Step 1 -->
-        <div class="how-step-wrap">
+        <div class="how-step-wrap" data-reveal="" data-reveal-delay="1">
           <div class="step-card">
             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#f97316" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
               <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
@@ -510,7 +604,7 @@
           <div class="how-arrow">→</div>
         </div>
         <!-- Step 2 -->
-        <div class="how-step-wrap">
+        <div class="how-step-wrap" data-reveal="" data-reveal-delay="2">
           <div class="step-card">
             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#f97316" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
               <path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6L12 2z"/>
@@ -522,7 +616,7 @@
           <div class="how-arrow">→</div>
         </div>
         <!-- Step 3 -->
-        <div class="how-step-wrap">
+        <div class="how-step-wrap" data-reveal="" data-reveal-delay="3">
           <div class="step-card">
             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#f97316" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
               <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
@@ -540,8 +634,8 @@
   <!-- ── Clear eyes, no hype ── -->
   <section class="not-section">
     <div class="container" style="max-width:680px;">
-      <h2 class="section-heading">Clear eyes, no hype.</h2>
-      <div class="not-card">
+      <h2 class="section-heading" data-reveal="">Clear eyes, no hype.</h2>
+      <div class="not-card" data-reveal="" data-reveal-delay="1">
         <div class="not-row">
           <p><span class="muted">Not another scheduler.</span> Buffer does that fine.</p>
         </div>
@@ -558,10 +652,10 @@
   <!-- ── Pricing ── -->
   <section class="pricing-section">
     <div class="container">
-      <h2 class="section-heading">Simple, honest pricing.</h2>
-      <p style="color:rgba(255,255,255,0.45);font-size:1.05rem;margin-top:12px;">Everything free for 14 days. No card needed, no gotchas.</p>
+      <h2 class="section-heading" data-reveal="">Simple, honest pricing.</h2>
+      <p data-reveal="" data-reveal-delay="1" style="color:rgba(255,255,255,0.45);font-size:1.05rem;margin-top:12px;">Everything free for 14 days. No card needed, no gotchas.</p>
 
-      <div class="pricing-card">
+      <div class="pricing-card" data-reveal="" data-reveal-delay="2">
         <div class="plan-label">Pro</div>
         <div class="plan-price-row">
           <span class="amount">$19</span>
@@ -578,7 +672,7 @@
           <li><span class="check">✓</span> Weekly auto-generation</li>
           <li><span class="check">✓</span> X, LinkedIn &amp; IndieHackers</li>
         </ul>
-        <a href="#waitlist" class="pricing-btn">Join the waitlist</a>
+        <span class="shadow-btn-wrap"><a href="#waitlist" class="pricing-btn">Join the waitlist</a></span>
         <p class="pricing-note">No credit card required to start</p>
       </div>
     </div>
@@ -729,6 +823,42 @@
   }
 
   animId = requestAnimationFrame(draw);
+})();
+
+// ── Cursor glow ────────────────────────────────────────────
+(function () {
+  var el = document.getElementById('cursor-glow');
+  var targetX = window.innerWidth / 2;
+  var targetY = window.innerHeight / 2;
+  var currentX = targetX;
+  var currentY = targetY;
+
+  window.addEventListener('mousemove', function (e) {
+    targetX = e.clientX;
+    targetY = e.clientY;
+  });
+
+  function loop() {
+    currentX += (targetX - currentX) * 0.032;
+    currentY += (targetY - currentY) * 0.032;
+    el.style.transform = 'translate(' + currentX + 'px, ' + currentY + 'px) translate(-50%, -50%)';
+    requestAnimationFrame(loop);
+  }
+  loop();
+})();
+
+// ── Scroll reveal ───────────────────────────────────────────
+(function () {
+  var els = document.querySelectorAll('[data-reveal]');
+  var observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('revealed');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  els.forEach(function (el) { observer.observe(el); });
 })();
 
 // ── Waitlist form (AJAX, no redirect) ──────────────────────
